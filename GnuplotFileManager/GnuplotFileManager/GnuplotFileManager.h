@@ -2,26 +2,33 @@
 
 #include <unordered_map>
 #include <iostream>
+#include <fstream>
+#include <Windows.h>
 
 using namespace std;
 
 class CGnuplotFileManager
 {
 public: enum MODE{
-		READONLY,
-		WRITE
+		POSTSCRIPT,
+		NEW
+	};
+	enum FILE {
+		NOTOPEN,
+		OK
 	};
 private:
-	static unordered_map<string, iostream> streams;
-	CGnuplotFileManager() = default;
-	~CGnuplotFileManager() = default;
+	unordered_map<string, ofstream*>* streams;
 	CGnuplotFileManager(const CGnuplotFileManager&) = delete;
 	CGnuplotFileManager& operator=(const CGnuplotFileManager&) = delete;
 	CGnuplotFileManager(CGnuplotFileManager&&) = delete;
 	CGnuplotFileManager& operator=(CGnuplotFileManager&&) = delete;
 public:
-	static CGnuplotFileManager& getInstance();
-	void writeData(const string const *fileName, double* data, int size) const;
-	void openFile(string fileName,MODE mode) const;
+	CGnuplotFileManager();
+	~CGnuplotFileManager();
+	CGnuplotFileManager::FILE isOpen(string *fileName) const;
+	CGnuplotFileManager::FILE nextDataBlock(string *fileName) const;
+	CGnuplotFileManager::FILE writeData(string *fileName, double* data, int size) const;
+	CGnuplotFileManager::FILE openFile(string *fileName,MODE mode) const;
 };
 

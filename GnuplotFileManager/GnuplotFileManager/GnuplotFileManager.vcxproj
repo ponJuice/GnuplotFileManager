@@ -118,10 +118,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DebugOutputStr.h" />
     <ClInclude Include="GnuplotFileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GnuplotFileManager.cpp" />
+    <ClCompile Include="testmain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
